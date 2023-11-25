@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json({ limit: '3mb' }));
 app.use(express.static(path.join(__dirName, 'public')));
 app.use(cookie());
-app.use(cors());
+app.use(cors({ origin: 'https://accenture-clone-frontend.onrender.com/' }));
 
 const con = await mongoose.connect(process.env.ENVIRONMENT === 'production' ? process.env.MONGODB_DATABASE_URL : process.env.MONGODB_LOCAL_DATABASE_URL);
 cloudinary.config({
