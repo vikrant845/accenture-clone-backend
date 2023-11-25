@@ -15,7 +15,7 @@ import { v2 as cloudinary } from 'cloudinary';
 
 const __fileName = url.fileURLToPath(import.meta.url);
 const __dirName = url.fileURLToPath(new URL('.', import.meta.url));
-const whitelistUrls = ['https://accenture-clone-frontend.onrender.com', 'http://localhost:5173', '44.226.145.213', '54.187.200.255', '34.213.214.55', '35.164.95.156', '44.230.95.183', '44.229.200.200'];
+const whitelistUrls = ['https://accenture-clone-frontend.onrender.com', 'http://localhost:5173'];
 const app = express();
 
 app.use(express.json({ limit: '3mb' }));
@@ -28,6 +28,13 @@ app.use(cors({
     else callback(null, true);
   }
 }));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow_Origin', 'https://accenture-clone-frontend.onrender.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, DELETE, OPTIONS, CONNECT, POST, TRACE');
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers");
+  next();
+});
 
 const con = await mongoose.connect(process.env.ENVIRONMENT === 'production' ? process.env.MONGODB_DATABASE_URL : process.env.MONGODB_LOCAL_DATABASE_URL);
 cloudinary.config({
