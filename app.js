@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirName, 'public')));
 app.use(cookie());
 app.use(cors());
 
-const con = await mongoose.connect(process.env.MONGODB_DATABASE_URL);
+const con = await mongoose.connect(process.env.ENVIRONMENT === 'production' ? process.env.MONGODB_DATABASE_URL : process.env.MONGODB_LOCAL_DATABASE_URL);
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
