@@ -15,13 +15,17 @@ import { v2 as cloudinary } from 'cloudinary';
 
 const __fileName = url.fileURLToPath(import.meta.url);
 const __dirName = url.fileURLToPath(new URL('.', import.meta.url));
+const whitelistUrls = ['https://accenture-clone-frontend.onrender.com/', 'http://localhost:5173'];
 
 const app = express();
 
 app.use(express.json({ limit: '3mb' }));
 app.use(express.static(path.join(__dirName, 'public')));
 app.use(cookie());
-app.use(cors({ origin: 'https://accenture-clone-frontend.onrender.com/' }));
+app.use(cors({ origin: (origin, callback) => {
+  if (whitelistUrls.indexOf(origin) === -1) callback(new Error('Origin not allowed'));
+  else callback(null, true)
+} }));
 
 const con = await mongoose.connect(process.env.ENVIRONMENT === 'production' ? process.env.MONGODB_DATABASE_URL : process.env.MONGODB_LOCAL_DATABASE_URL);
 cloudinary.config({
