@@ -15,7 +15,7 @@ import { v2 as cloudinary } from 'cloudinary';
 
 const __fileName = url.fileURLToPath(import.meta.url);
 const __dirName = url.fileURLToPath(new URL('.', import.meta.url));
-const whitelistUrls = ['https://accenture-clone-frontend.onrender.com/', 'http://localhost:5173'];
+const whitelistUrls = ['https://accenture-clone-frontend.onrender.com/', 'http://localhost:5173', '44.226.145.213', '54.187.200.255', '34.213.214.55', '35.164.95.156', '44.230.95.183', '44.229.200.200'];
 
 const app = express();
 
