@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json({ limit: '3mb' }));
 app.use(express.static(path.join(__dirName, 'public')));
 app.use(cookie());
-app.use(cors({ origin: (origin, callback) => {
+app.use(cors({ origin: function (origin, callback) {
   console.log(origin);
   if (whitelistUrls.indexOf(origin) === -1) callback(new Error('Origin not allowed'));
   else callback(null, true)
