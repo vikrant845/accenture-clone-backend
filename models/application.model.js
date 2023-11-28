@@ -118,6 +118,9 @@ applicationSchema.pre(/^find/, function (next) {
     path: 'user',
     select: '-passwordChangedAt'
   });
+  this.populate({
+    path: 'job'
+  });
   next();
 });
 

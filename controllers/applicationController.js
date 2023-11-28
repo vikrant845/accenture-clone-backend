@@ -20,3 +20,14 @@ export const addApplication = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+export const appliedJobs = catchAsync(async (req, res, next) => {
+  const { userId } = req.params;
+  const appliedJobs = await Application.find({ user: userId }).select('-user');
+  res.status(200).json({
+    message: 'success',
+    data: {
+      appliedJobs
+    }
+  });
+});

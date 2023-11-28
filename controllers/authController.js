@@ -7,7 +7,7 @@ export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) return next(new Error('Email or Password not entered'));
   
-  const user = await User.findOne({ email }).select('+password').populate('applications', '_id job createdAt updatedAt -user');
+  const user = await User.findOne({ email }).select('+password').populate('applications', '-user');
   if (!user || !await user.correctPassword(password, user.password)) return next(new Error('Please enter correct email and password.'));
 
   const token = await createJWT({ id: user._id });
